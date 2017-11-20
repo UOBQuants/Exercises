@@ -1,4 +1,4 @@
-%%
+%% Info
 % *Author: Ashley Robertson*
 % *Excerise: 1.1.4 Meucci*
 
@@ -26,6 +26,7 @@ pdfZ = pdfX + pdfY;
 
 figure
 plot(z,pdfZ)
+title('Literal addition of pdfs of X and Y')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generate plot of samples
 pdX = makedist('tLocationScale', 0, sqrt(0.1), 8);
@@ -35,14 +36,40 @@ XSample = icdf(pdX,UniformSample);
 YSample = icdf(pdY,UniformSample);
 ZSample = XSample + YSample;
 
-w = 1/n;
-scale = w:w:1;
+
+scale = 1:1:n;
 
 figure
-plot(ZSample, scale, '.');
+plot(scale, ZSample, '.');
+grid on
+xlabel('Simulations')
+ylabel('Z')
+title('sample vs observation time')
 
 figure
-histogram(ZSample, 300)
+Bins=round(10*log(n));
+histogram(ZSample, Bins)
+title('Z = X + Y in histogram')
 
 % Notice that the histogram does not represent figure 1. Therefore adding
 % pdfs was a wrong method
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plot empirical cdf
+figure % open new figure
+[f,z]=ecdf(ZSample);
+plot(z,f);
+grid on
+xlabel('Z')
+title('empirical cdf')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plot empirical quantile
+u=[.01 : .01 : .99];  % range of quantiles (values between zero and one)
+q=prctile(ZSample,u*100);
+figure % open new figure
+plot(u,q);
+grid on
+xlabel('Grade')
+ylabel('Quantile')
+title('empirical quantile')
