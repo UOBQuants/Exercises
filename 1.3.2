@@ -21,7 +21,7 @@ rs=[1: T];                  %r statisitc
 x=[0 : .01 : 2.5*exp(mu+s*s/2)];            %calculating x
 F=logncdf(x,mu,s);          %producing cdf
 f=lognpdf(x,mu,s);          %producing pdf
-for n=1:length(rs)
+for n=1:length(rs)          %creating the loop
     r=rs(n);
     
     pdf_rT = gamma(T+1)/(gamma(r)*gamma(T-r+1))*(F.^(r-1)).*((1-F).^(T-r)).*f;
