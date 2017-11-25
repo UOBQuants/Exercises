@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% START OF FILE 
+% START OF FILE
 % Sam Harper
 % UoB Quants
 % Assuming IID variables are lognormal instead of student t
@@ -12,7 +12,7 @@
 close all; clc; clear;%clearing workspace
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% input  
+% input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 mu=0; %inputting mu
@@ -25,19 +25,19 @@ T=70; %inputting T
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 rs=[1: T]; % defining number of quartiles
-x=mu + s*[-4: .01 : 4]; 
+x=mu + s*[-4: .01 : 4];
 F=tcdf((x-mu)/s,nu); % defines cdf
 f=1/s*tpdf((x-mu)/s,nu); % defines pdf
 for n=1:length(rs) % for loop for all s inputted
-    r=rs(n); % defining legnth of r
-    
-    pdf_rT = gamma(T+1)/(gamma(r)*gamma(T-r+1))*(F.^(r-1)).*((1-F).^(T-r)).*f; %calculating value of pdf
-    q=mu+s*tinv(r/T,nu); %turning oit into a cdf
+r=rs(n); % defining legnth of r
 
-    hold on
-    plot3(x,r/T+0*x,pdf_rT); %producing the graph
-    hold on
-    plot3(q,r/T,0,'.')
+pdf_rT = gamma(T+1)/(gamma(r)*gamma(T-r+1))*(F.^(r-1)).*((1-F).^(T-r)).*f; %calculating value of pdf
+q=mu+s*tinv(r/T,nu); %turning oit into a cdf
+
+hold on
+plot3(x,r/T+0*x,pdf_rT); %producing the graph
+hold on
+plot3(q,r/T,0,'.')
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
