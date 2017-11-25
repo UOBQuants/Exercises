@@ -16,64 +16,64 @@ clear; close all;  clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 NumSimulations=10000; % scalar
-ExpX=3;
-VarX=5;
+ExpX=3; %inputting exp
+VarX=5; %inputting var
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generate lognormal sample with above parameters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[mu,sigma_square]=LognMomentsToParameters(ExpX,VarX);
-sigma=sqrt(sigma_square);
-X=lognrnd(mu,sigma,NumSimulations,1);
+[mu,sigma_square]=LognMomentsToParameters(ExpX,VarX); %turning above figures to fit lognormal sample
+sigma=sqrt(sigma_square); %sigma sqrt rooted
+X=lognrnd(mu,sigma,NumSimulations,1); % saying x is lognormal random dist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot sample
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure % open new figure
-ObservationTime=[1:NumSimulations];
-plot(ObservationTime,X,'.'); 
+ObservationTime=[1:NumSimulations]; % number of ovbs
+plot(ObservationTime,X,'.'); %naming the plot
 grid on
-title('lognormal sample vs observation time')
+title('lognormal sample vs observation time') %title
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot histogram
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-NumBins=round(10*log(NumSimulations));
+NumBins=round(10*log(NumSimulations)); %number of bars on histogram
 figure % open new figure
-hist(X,NumBins);
+hist(X,NumBins); %histogram data
 grid on
-title('histogram of lognormal sample')
+title('histogram of lognormal sample') %title
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot empirical cdf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 figure % open new figure
-[f,x]=ecdf(X);
-plot(x,f);
+[f,x]=ecdf(X); % calculating empirical
+plot(x,f); %plotting expirical
 grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot exact cdf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-F=logncdf(x,mu,sigma);
+F=logncdf(x,mu,sigma); %calculating lognormal cdf
 hold on  % superimpose graph
-h=plot(x,F);
-set(h,'color','r');
+h=plot(x,F); %plotting
+set(h,'color','r'); %changed colour
 
-legend('empirical','exact','location','best')
-title('cdf of lognormal distribution')
+legend('empirical','exact','location','best') %titles
+title('cdf of lognormal distribution') %titles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot empirical quantile
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 u=[.01 : .01 : .99];  % range of quantiles (values between zero and one)
-q=prctile(X,u*100);
+q=prctile(X,u*100); %working out qth percentile
 figure % open new figure
 plot(u,q);
 grid on
@@ -82,15 +82,15 @@ grid on
 % plot exact quantile
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Q=logninv(u,mu,sigma);
+Q=logninv(u,mu,sigma); %calculating the quantile of longnormal
 hold on 
 h=plot(u,Q);
-set(h,'color','r');
+set(h,'color','r'); %titles
 
-legend('empirical','exact','location','best')
-title('quantile of lognormal distribution')
-xlabel('Grade')
-ylabel('Quantile')
+legend('empirical','exact','location','best') %titles
+title('quantile of lognormal distribution')%titles
+xlabel('Grade')%titles
+ylabel('Quantile')%titles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF FILE
