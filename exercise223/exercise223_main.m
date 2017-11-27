@@ -7,7 +7,7 @@ clc; clear;
 
 % input parameters
 Mu=[1  -1]';   % exp values   
-r=0.7;              % correlation
+r=-0.7;              % correlation
 sigmas=[1 1]';   % st. deviations
 
 %if we want a specific Sigma we just have to change sigmas and r
@@ -37,3 +37,6 @@ surf(G1,G2,f_U)  %3D surface plot
 xlabel('U_1')
 ylabel('U_2')
 zlabel('Copula pdf')
+
+%notice that when r is zero we have a flat copula pdf, which means
+%independence
